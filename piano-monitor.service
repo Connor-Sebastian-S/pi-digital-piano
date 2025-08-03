@@ -1,0 +1,13 @@
+[Unit]
+Description=Piano Monitoring Service
+After=multi-user.target
+
+[Service]
+User=admin
+WorkingDirectory=/home/admin/piano
+ExecStart=/home/admin/piano/script/start_monitoring.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
