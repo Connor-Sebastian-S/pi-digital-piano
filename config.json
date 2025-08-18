@@ -1,0 +1,188 @@
+{
+  "midi": {
+    "virtual_port_name": "PianoPi",
+    "channel": 0,
+    "velocity": {
+      "min": 8,
+      "max": 127,
+      "default": 64,
+      "max_time_diff_ms": 80.0
+    },
+    "max_midi_channels": 64,
+    "pitch_bend_range_semitones": 2
+  },
+  
+  "volume": {
+    "min_raw": 0,
+    "max_raw": 4095,
+    "curve": "logarithmic"
+  },
+
+  "audio": {
+    "fluidsynth": {
+      "enabled": true,
+      "soundfont_path": "/home/admin/piano/sounds/UprightPianoKW-20220221.sf2",
+      "audio_driver": "alsa",
+      "sample_rate": 44100,
+      "audio_channels": 2,
+      "buffer_size": 1024,
+      "gain": 0.5,
+      "extra_fluidsynth_args": [],
+      "midi_client_name": "PianoPiClient",
+      "synth_midi_channels": 256,
+      "reverb": {
+        "roomsize": 0.5,
+        "damp": 0.2,
+        "width": 0.6,
+        "level": 0.2
+      }
+    }
+  },
+
+  "devices": {
+    "auto_detect": false,
+    "manual_mapping": {
+      "/dev/ttyACM0": "MASTER_BASS_PEDALS",
+      "/dev/ttyACM2": "SLAVE_TREBLE"
+    },
+    "serial": {
+      "baudrate": 115200,
+      "timeout": 1.0,
+      "reconnect_attempts": 3,
+      "reconnect_delay": 5.0
+    }
+  },
+
+  "piano": {
+    "key_mapping": {
+      "bass_midi_offset": 21,
+      "treble_midi_offset": 21,
+      "total_keys": 88,
+      "playing_style": "gentle",
+      "sympathetic_resonance": true,
+      "micro_timing": true,
+      "velocity_humanization": true,
+      "unison_strings": 3
+    },
+    "pedals": {
+      "sustain_cc": 64,
+      "sostenuto_cc": 66,
+      "soft_cc": 67,
+      "partial_sustain_threshold": 0.15,
+      "pedal_noise_level": 0.6
+    }
+  },
+
+  "sound_model": {
+    "hammer": {
+      "felt_density": { "min": 0.1, "max": 1.0 },
+      "hardness_layers": [0.2, 0.5, 0.8],
+      "age_compression_rate": 0.01,
+      "asymmetry_factor": 0.95,
+      "voicing_profile": {
+        "soft_phase_duration_ms": 0.45,
+        "hard_phase_duration_ms": 0.18
+      },
+      "groove_depth_factor": 0.0,
+      "hardening_rate": 0.0005
+    },
+
+    "string": {
+      "base_tension": 180.0,
+      "temperature_pitch_drift_cents_per_deg": 0.12,
+      "inharmonicity_coefs": {
+        "bass": 0.0005,
+        "mid": 0.0003,
+        "treble": 0.00012
+      },
+      "unison_detune_cents": 4.0,
+      "unison_variation_cents": 0.8,
+      "corrosion_factor": 0.0,
+      "winding_looseness": 0.0
+    },
+
+    "coupling": {
+      "adjacent_strength": 0.2,
+      "harmonic_strength": 0.5,
+      "velocity_dependence": 1.2,
+      "pedal_factor": 1.5,
+      "soundboard_region_factor": 1.0
+    },
+
+    "soundboard": {
+      "modes": [
+        { "freq_hz": 200, "q": 30, "amp": 1.0 },
+        { "freq_hz": 450, "q": 25, "amp": 0.8 }
+      ],
+      "env_drift": {
+        "humidity_coeff": 0.02,
+        "pressure_coeff": 0.01
+      },
+      "board_warp_factor": 0.0,
+      "dust_accumulation": 0.0
+    },
+
+    "case": {
+      "modes": [ { "freq_hz": 50, "q": 10, "amp": 0.3 } ],
+      "creak_probability": 0.01
+    },
+
+    "extended": {
+      "harmonic_detection_threshold": 0.01,
+      "preparation_effects": {
+        "mute": 0.8,
+        "bolt": 1.2,
+        "paper": 0.9,
+        "coin": 1.3
+      },
+      "broken_string_probability": 0.0001,
+      "preparation_noise_level": 0.5
+    },
+
+    "transient": {
+      "attack_phases": [ "hammer", "string", "soundboard" ],
+      "harmonic_decay_rates": [0.8, 0.6, 0.4],
+      "mechanical_noise_mix": 0.3,
+      "escapement_click_gain": 0.5
+    },
+
+    "polyphony": {
+      "max_active_notes": 64,
+      "resonance_capture": true,
+      "resonance_extension_factor": 1.2
+    }
+  },
+
+  "mechanical_noises": {
+    "enable": true,
+    "map": {
+      "escapement_click": { "midi_note": 38, "velocity_factor": 16, "channel": 9 },
+      "bottom_thump": { "midi_note": 37, "velocity_factor": 32, "channel": 9 },
+      "release_click": { "midi_note": 39, "velocity_factor": 12, "channel": 9 },
+      "spring_creak": { "midi_note": 40, "velocity_factor": 10, "channel": 9 }
+    },
+    "global_gain": 0.7
+  },
+
+  "room": {
+    "size_m": 12.0,
+    "reverb_time_s": 1.2,
+    "mic_position": "player",
+    "convolution_enabled": false
+  },
+
+  "logging": {
+    "level": "DEBUG",
+    "file": "piano_midi.log",
+    "max_file_size_mb": 10,
+    "backup_count": 5,
+    "console_output": true
+  },
+
+  "performance": {
+    "scan_delay_ms": 1,
+    "key_debounce_ms": 8,
+    "pedal_debounce_ms": 30,
+    "config_watch_poll_s": 1.0
+  }
+}
